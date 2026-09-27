@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DATOS CURIOSOS DE LA BIBLIA — Presentación Interactiva</title>
+    <meta name="description"
+        content="Presentación interactiva horizontal de cifras, detalles históricos, idiomas y curiosidades de la Biblia.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Canvas de Partículas Interactivas en Fondo -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Header Navigation & Counter -->
+    <div class="top-progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <div class="header-tag">
+        DATOS CURIOSOS DE LA BIBLIA
+    </div>
+
+    <div class="footer-counter" id="slide-counter">
+        01 / 16
+    </div>
+
+
+    <!-- Presentation Engine Container -->
+    <div class="presentation-wrapper" id="presentation-wrapper">
+
+        <!-- ==========================================================================
+             SLIDE 01 — PORTADA
+             ========================================================================== -->
+        <section class="slide-scene active" data-slide="1">
+            <div class="scene-content">
+                <div class="hero-bible-container">
+                    <div class="hero-light-beam"></div>
+                    <img src="assets/cover_bible.png" alt="Biblia Iluminada" class="hero-bible-img">
+                </div>
+
+                <h1 class="hero-main-title">
+                    DATOS CURIOSOS
+                    <span>DE LA BIBLIA</span>
+                </h1>
+
+                <p class="hero-tagline">
+                    Descubre los datos y detalles más sorprendentes de las Escrituras
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 02 — DETRÁS DE LA PALABRA "BIBLIA"
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="2">
+            <div class="scene-content">
+                <div class="badge-tag">ORIGEN DEL NOMBRE</div>
+                <h2 class="section-title">DETRÁS DE LA PALABRA <span class="gold-highlight">“BIBLIA”</span></h2>
+                <p class="section-subtitle">
+                    ¿Qué significa realmente la palabra "Biblia"?
+                </p>
+
+                <div class="manuscript-stage">
+                    <div class="manuscript-visual">
+                        <div class="manuscript-img-card">
+                            <img src="assets/ancient_manuscript.png" alt="Manuscrito Antiguo">
+                        </div>
+                    </div>
+
+                    <div class="etymology-chain">
+                        <div class="etym-step">
+                            <span class="etym-word">BÍBLIA</span>
+                        </div>
+                        <span class="etym-arrow">↓</span>
+                        <div class="etym-step">
+                            <span class="etym-greek">biblía (βιβλία)</span>
+                        </div>
+                        <span class="etym-arrow">↓</span>
+                        <div class="etym-step">
+                            <span class="etym-meaning">“los libros”</span>
+                        </div>
+
+                        <p style="margin-top: 15px; font-size: 1.15rem; color: var(--beige-text); line-height: 1.6;">
+                            Viene del griego <em>biblía</em>, que significa literalmente “los libros”.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 03 — UN LIBRO QUE VIAJÓ POR EL MUNDO (EXPANSIÓN DESDE JERUSALÉN)
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="3">
+            <div class="scene-content">
+                <div class="badge-tag">DIFUSIÓN GLOBAL</div>
+                <h2 class="section-title">UN LIBRO QUE <span class="gold-highlight">VIAJÓ POR EL MUNDO</span></h2>
+                <p class="section-subtitle">
+                    La expansión de las Escrituras iniciada en Jerusalén hacia todo el planeta:
+                </p>
+
+                <div class="map-canvas-container">
+                    <svg id="world-map-svg" viewBox="0 0 1000 480">
+                        <defs>
+                            <filter id="glow-gold" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="5" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            <filter id="glow-cyan" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="5" result="blur" />
+                                <feMerge>
+                                    <feMergeNode in="blur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                            <radialGradient id="jerusalem-pulse-grad" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#ffffff" />
+                                <stop offset="40%" stop-color="#f7e7b5" />
+                                <stop offset="100%" stop-color="#d4af37" />
+                            </radialGradient>
+                        </defs>
+
+                        <!-- Silhouette Contients Background -->
+                        <path class="map-world-bg" d="M120,130 Q160,110 240,140 Q300,160 320,240 Q280,320 220,380 Q140,360 100,260 Z 
+                                 M400,100 Q480,80 560,110 Q620,150 580,220 Q520,280 440,240 Q380,180 400,100 Z
+                                 M460,250 Q540,240 580,320 Q540,400 460,420 Q400,380 420,300 Z
+                                 M620,120 Q780,100 880,160 Q940,260 840,340 Q720,380 640,280 Z" 
+                              fill="rgba(212, 175, 55, 0.05)" stroke="rgba(212, 175, 55, 0.18)" stroke-width="1.2"/>
+
+                        <!-- Radiating Expansion Arc Lines from Jerusalem (500, 200) -->
+                        <!-- Arc to Roma -->
+                        <path class="expansion-line line-roma" d="M500,200 Q360,140 260,180" fill="none" stroke="#38bdf8" stroke-width="2.5" filter="url(#glow-cyan)"/>
+                        <!-- Arc to Asia -->
+                        <path class="expansion-line line-asia" d="M500,200 Q650,140 780,240" fill="none" stroke="#f7e7b5" stroke-width="2.5" filter="url(#glow-gold)"/>
+                        <!-- Arc to Africa -->
+                        <path class="expansion-line line-africa" d="M500,200 Q510,270 500,340" fill="none" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow-gold)"/>
+                        <!-- Arc to Americas -->
+                        <path class="expansion-line line-americas" d="M500,200 Q310,240 180,320" fill="none" stroke="#38bdf8" stroke-width="2" filter="url(#glow-cyan)"/>
+
+                        <!-- Destination Nodes -->
+                        <g class="map-node" transform="translate(260, 180)">
+                            <circle r="12" fill="rgba(56, 189, 248, 0.25)"/>
+                            <circle r="5" fill="#38bdf8"/>
+                            <text x="0" y="-16" fill="#e2e8f0" font-size="11" font-family="Cinzel" font-weight="700" text-anchor="middle">ROMA / EUROPA</text>
+                        </g>
+
+                        <g class="map-node" transform="translate(780, 240)">
+                            <circle r="12" fill="rgba(247, 231, 181, 0.25)"/>
+                            <circle r="5" fill="#f7e7b5"/>
+                            <text x="0" y="-16" fill="#e2e8f0" font-size="11" font-family="Cinzel" font-weight="700" text-anchor="middle">ASIA</text>
+                        </g>
+
+                        <g class="map-node" transform="translate(500, 340)">
+                            <circle r="12" fill="rgba(251, 191, 36, 0.25)"/>
+                            <circle r="5" fill="#fbbf24"/>
+                            <text x="0" y="24" fill="#e2e8f0" font-size="11" font-family="Cinzel" font-weight="700" text-anchor="middle">ÁFRICA</text>
+                        </g>
+
+                        <g class="map-node" transform="translate(180, 320)">
+                            <circle r="12" fill="rgba(56, 189, 248, 0.25)"/>
+                            <circle r="5" fill="#38bdf8"/>
+                            <text x="0" y="-16" fill="#e2e8f0" font-size="11" font-family="Cinzel" font-weight="700" text-anchor="middle">AMÉRICAS</text>
+                        </g>
+
+                        <!-- FOCAL ORIGIN: JERUSALÉN -->
+                        <g class="map-node origin-node" transform="translate(500, 200)">
+                            <circle r="28" fill="rgba(212, 175, 55, 0.15)" class="pulse-ring-outer"/>
+                            <circle r="18" fill="rgba(212, 175, 55, 0.35)" class="pulse-ring-inner"/>
+                            <circle r="9" fill="url(#jerusalem-pulse-grad)" filter="url(#glow-gold)"/>
+                            <circle r="3" fill="#ffffff"/>
+                            <text x="0" y="-34" fill="#ffd700" font-size="13" font-family="Cinzel" font-weight="900" letter-spacing="2" text-anchor="middle">PUNTO DE ORIGEN: JERUSALÉN</text>
+                        </g>
+                    </svg>
+
+                    <div class="map-stats-overlay">
+                        <div class="map-stat-box">
+                            <div class="map-stat-title">BIBLIA COMPLETA</div>
+                            <div class="map-stat-num">Cerca de 770–800 idiomas</div>
+                        </div>
+
+                        <div class="map-stat-box">
+                            <div class="map-stat-title">NUEVO TESTAMENTO</div>
+                            <div class="map-stat-num">Unos 1,800 idiomas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 04 — LA BIBLIA EN DATOS (NÚMEROS PRINCIPALES)
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="4">
+            <div class="scene-content">
+                <div class="badge-tag">RECORRIDO EN CIFRAS</div>
+                <h2 class="section-title">LA BIBLIA EN <span class="gold-highlight">DATOS</span></h2>
+                <p class="section-subtitle">
+                    Cifras clave sobre cómo está organizada la Biblia:
+                </p>
+
+                <div class="kinetic-grid">
+                    <div class="kinetic-card" data-counter="66">
+                        <span class="kinetic-number">66</span>
+                        <span class="kinetic-label">LIBROS</span>
+                    </div>
+
+                    <div class="kinetic-card" data-counter="1189">
+                        <span class="kinetic-number">1,189</span>
+                        <span class="kinetic-label">CAPÍTULOS</span>
+                    </div>
+
+                    <div class="kinetic-card" data-counter="31102">
+                        <span class="kinetic-number">31,102</span>
+                        <span class="kinetic-label">VERSÍCULOS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 05 — IDIOMAS ORIGINALES
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="5">
+            <div class="scene-content">
+                <div class="badge-tag">IDIOMAS ORIGINALES</div>
+                <h2 class="section-title">IDIOMAS Y <span class="gold-highlight">ESCRITURA</span></h2>
+                <p class="section-subtitle">
+                    Los 3 idiomas originales en que fue escrita la Biblia:
+                </p>
+
+                <div class="languages-trio">
+                    <div class="lang-card">
+                        <div class="lang-name">HEBREO</div>
+                        <div class="lang-desc">Antiguo Testamento principal</div>
+                    </div>
+
+                    <div class="lang-card">
+                        <div class="lang-name">ARAMAICO</div>
+                        <div class="lang-desc">Pasajes selectos en Daniel y Esdras</div>
+                    </div>
+
+                    <div class="lang-card">
+                        <div class="lang-name">GRIEGO KOINÉ</div>
+                        <div class="lang-desc">Nuevo Testamento completo</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 06 — AUTORES Y TIEMPO DE REDACCIÓN
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="6">
+            <div class="scene-content">
+                <div class="badge-tag">AUTORES Y REDACCIÓN</div>
+                <h2 class="section-title">MÁS DE 1,000 AÑOS <span class="gold-highlight">DE REDACCIÓN</span></h2>
+                <p class="section-subtitle">
+                    Hombres de distintas épocas y trasfondos inspirados para escribir:
+                </p>
+
+                <div class="comparison-grid" style="margin-top: 15px;">
+                    <div class="comp-block" style="padding: 24px 22px; text-align: center; align-items: center;">
+                        <div class="comp-header" style="font-size: 1.1rem; color: var(--gold-light);">UNOS 40 AUTORES</div>
+                        <p style="font-size: 1.15rem; color: var(--ivory-text); line-height: 1.5; margin-top: 10px;">
+                            Fue escrita por cerca de 40 hombres diferentes (reyes, poetas, profetas y pescadores) a lo largo de más de 1,000 años.
+                        </p>
+                    </div>
+
+                    <div class="comp-block" style="padding: 24px 22px; text-align: center; align-items: center;">
+                        <div class="comp-header" style="font-size: 1.1rem; color: var(--gold-light);">EL APÓSTOL PABLO</div>
+                        <p style="font-size: 1.15rem; color: var(--ivory-text); line-height: 1.5; margin-top: 10px;">
+                            Tradicionalmente se le considera autor de 13 cartas (epístolas) fundamentales del Nuevo Testamento.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 07 — LOS EXTREMOS
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="7">
+            <div class="scene-content">
+                <div class="badge-tag">TAMAÑOS Y EXTENSIÓN</div>
+                <h2 class="section-title">LOS <span class="gold-highlight">EXTREMOS</span></h2>
+                <p class="section-subtitle">
+                    Comparación entre las partes más cortas y las más largas de la Biblia:
+                </p>
+
+                <div class="comparison-grid">
+                    <div class="comp-block">
+                        <div class="comp-header">LIBROS</div>
+                        
+                        <div class="comp-item">
+                            <div>
+                                <span style="font-size: 0.85rem; color: var(--muted-slate); display: block;">MÁS CORTO</span>
+                                <span class="comp-item-name">2 JUAN</span>
+                            </div>
+                            <span class="comp-item-val">1 Cap. (13 vers.)</span>
+                        </div>
+                        <div class="comp-bar-container">
+                            <div class="comp-bar-fill" style="width: 8%;"></div>
+                        </div>
+
+                        <div class="comp-item" style="margin-top: 15px;">
+                            <div>
+                                <span style="font-size: 0.85rem; color: var(--gold-main); display: block;">MÁS EXTENSO</span>
+                                <span class="comp-item-name">SALMOS</span>
+                            </div>
+                            <span class="comp-item-val">150 Capítulos</span>
+                        </div>
+                        <div class="comp-bar-container">
+                            <div class="comp-bar-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="comp-block">
+                        <div class="comp-header">CAPÍTULOS</div>
+
+                        <div class="comp-item">
+                            <div>
+                                <span style="font-size: 0.85rem; color: var(--muted-slate); display: block;">MÁS CORTO</span>
+                                <span class="comp-item-name">SALMO 117</span>
+                            </div>
+                            <span class="comp-item-val">2 Versículos</span>
+                        </div>
+                        <div class="comp-bar-container">
+                            <div class="comp-bar-fill" style="width: 5%;"></div>
+                        </div>
+
+                        <div class="comp-item" style="margin-top: 15px;">
+                            <div>
+                                <span style="font-size: 0.85rem; color: var(--gold-main); display: block;">MÁS LARGO</span>
+                                <span class="comp-item-name">SALMO 119</span>
+                            </div>
+                            <span class="comp-item-val">176 Versículos</span>
+                        </div>
+                        <div class="comp-bar-container">
+                            <div class="comp-bar-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 08 — LOS 3 VERSÍCULOS MÁS CORTOS
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="8">
+            <div class="scene-content">
+                <div class="badge-tag">CURIOSIDADES</div>
+                <h2 class="section-title">LOS 3 VERSÍCULOS <span class="gold-highlight">MÁS CORTOS</span></h2>
+                <p class="section-subtitle">
+                    Los mensajes más breves y directos del texto bíblico:
+                </p>
+
+                <div class="shortest-grid">
+                    <div class="shortest-card">
+                        <span class="shortest-badge">01</span>
+                        <div class="shortest-ref">ÉXODO 20:13</div>
+                        <div class="shortest-quote">“No matarás.”</div>
+                        <div class="letters-count-pill">9 letras</div>
+                    </div>
+
+                    <div class="shortest-card">
+                        <span class="shortest-badge">02</span>
+                        <div class="shortest-ref">JUAN 11:35</div>
+                        <div class="shortest-quote">“Jesús lloró.”</div>
+                        <div class="letters-count-pill">10 letras</div>
+                    </div>
+
+                    <div class="shortest-card">
+                        <span class="shortest-badge">03</span>
+                        <div class="shortest-ref">1 TESALONICENSES 5:17</div>
+                        <div class="shortest-quote">“Orad sin cesar.”</div>
+                        <div class="letters-count-pill">12 letras</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 09 — JOB 3:2 EN OTRAS VERSIONES
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="9" id="scene-job-versions">
+            <div class="scene-content" style="max-width: 1100px;">
+                <div class="badge-tag">DEBATE DE TRADUCCIÓN</div>
+                <h2 class="section-title">JOB 3:2 <span class="gold-highlight">¿EL MÁS CORTO?</span></h2>
+                <p class="section-subtitle">
+                    Dependiendo de la versión bíblica en español, Job 3:2 también es citado como el versículo más corto:
+                </p>
+
+                <div class="job-versions-grid">
+                    <div class="job-version-card">
+                        <span class="version-name">RVR1960</span>
+                        <div class="version-full-title">Reina-Valera 1960</div>
+                        <div class="version-quote">«Y exclamó Job, y dijo:»</div>
+                        <div class="version-count-pill">(16 letras)</div>
+                    </div>
+
+                    <div class="job-version-card">
+                        <span class="version-name">NVI</span>
+                        <div class="version-full-title">Nueva Versión Internacional</div>
+                        <div class="version-quote">«Dijo así:»</div>
+                        <div class="version-count-pill">(7 letras)</div>
+                    </div>
+
+                    <div class="job-version-card">
+                        <span class="version-name">LBLA</span>
+                        <div class="version-full-title">La Biblia de las Américas</div>
+                        <div class="version-quote">«Y Job dijo:»</div>
+                        <div class="version-count-pill">(8 letras)</div>
+                    </div>
+
+                    <div class="job-version-card highlight-version">
+                        <span class="version-name gold-badge-sm">NTV</span>
+                        <div class="version-full-title">Nueva Traducción Viviente</div>
+                        <div class="version-quote highlight-quote">«Dijo:»</div>
+                        <div class="version-count-pill gold-pill">(4 letras)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 10 — INTRO: DATOS CIENTÍFICOS EN LA BIBLIA
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="10" id="scene-science-intro">
+            <div class="scene-content">
+                <div class="badge-tag" style="background: rgba(212, 175, 55, 0.18); border: 1.5px solid var(--gold-main); padding: 8px 22px; font-size: 0.9rem; letter-spacing: 2.5px;">
+                    ANTICIPACIÓN CIENTÍFICA
+                </div>
+
+                <h2 class="section-title" style="font-size: clamp(2.4rem, 4.8vw, 4.2rem); margin-top: 15px; margin-bottom: 18px;">
+                    DATOS CIENTÍFICOS <span class="gold-highlight">EN LA BIBLIA</span>
+                </h2>
+
+                <p class="section-subtitle" style="max-width: 820px; font-size: clamp(1.1rem, 2vw, 1.35rem); line-height: 1.6;">
+                    Declaraciones sorprendentes redactadas miles de años antes de que la ciencia moderna las confirmara.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 11 — LA TIERRA EN EL ESPACIO (JOB 26:7)
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="11" id="scene-earth">
+            <div class="scene-content">
+                <div class="badge-tag">LA TIERRA EN EL ESPACIO</div>
+                <h2 class="section-title">SUSPENDIDA EN <span class="gold-highlight">EL ESPACIO</span></h2>
+                <p class="section-subtitle">
+                    Una antigua y sorprendente declaración sobre nuestro planeta:
+                </p>
+
+                <div class="science-mosaic">
+                    <div class="science-earth-visual">
+                        <img src="assets/earth_space.png" alt="La Tierra en el espacio">
+                    </div>
+
+                    <div class="science-facts-column">
+                        <div class="science-fact-card highlight-card">
+                            <div class="science-ref-tag">JOB 26:7</div>
+                            <div class="science-fact-text" style="font-size: clamp(1.4rem, 2vw, 1.7rem); line-height: 1.35;">“Cuelga la tierra sobre nada.”</div>
+                            <div class="science-fact-explain">Escrito hace miles de años, describe a la Tierra flotando suspendida en el espacio.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="science-disclaimer">
+                    * Texto poético antiguo que hace referencia al planeta en el espacio.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 12 — EL CICLO HIDROLÓGICO (JOB 36:27-28 Y AMÓS 9:6)
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="12" id="scene-water">
+            <div class="scene-content">
+                <div class="badge-tag">EL CICLO DEL AGUA</div>
+                <h2 class="section-title">EL CICLO <span class="gold-highlight">HIDROLÓGICO</span></h2>
+                <p class="section-subtitle">
+                    Menciones antiguas sobre la evaporación, la condensación y la lluvia:
+                </p>
+
+                <div class="science-mosaic">
+                    <div class="science-earth-visual">
+                        <img src="assets/water_cycle.png" alt="El Ciclo Hidrológico">
+                    </div>
+
+                    <div class="science-facts-column">
+                        <div class="science-fact-card">
+                            <div class="science-ref-tag">JOB 36:27-28</div>
+                            <div class="science-fact-text">“Él atrae las gotas de las aguas, al evaporarse la lluvia...”</div>
+                            <div class="science-fact-explain">Describe el proceso de evaporación del agua y formación de las nubes.</div>
+                        </div>
+
+                        <div class="science-fact-card">
+                            <div class="science-ref-tag">AMÓS 9:6</div>
+                            <div class="science-fact-text">“Llama a las aguas del mar, y sobre la faz de la tierra las derrama...”</div>
+                            <div class="science-fact-explain">Explica la precipitación del agua desde el mar hacia la tierra firme.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="science-disclaimer">
+                    * Etapas del ciclo hidrológico: Evaporación ➔ Condensación ➔ Precipitación ➔ Escorrentía
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 13 — EL ARCA DE NOÉ Y SUS MEDIDAS (GÉNESIS 6:15)
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="13" id="scene-ark">
+            <div class="scene-content" style="max-width: 1240px;">
+                <div class="badge-tag">GÉNESIS 6:15</div>
+                <h2 class="section-title">EL ARCA DE NOÉ <span class="gold-highlight">Y SUS MEDIDAS</span></h2>
+                
+                <div class="ark-full-stage">
+                    <!-- Realistic SVG Ark Blueprint -->
+                    <div class="ark-blueprint-container">
+                        <svg viewBox="0 0 760 360" class="ark-svg-blueprint" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(56, 189, 248, 0.08)" stroke-width="1"/>
+                                </pattern>
+                                <linearGradient id="hullWood" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#9a6432"/>
+                                    <stop offset="50%" stop-color="#673f1b"/>
+                                    <stop offset="100%" stop-color="#3d220b"/>
+                                </linearGradient>
+                                <linearGradient id="deckWood" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#c48a49"/>
+                                    <stop offset="50%" stop-color="#e3be53"/>
+                                    <stop offset="100%" stop-color="#96622b"/>
+                                </linearGradient>
+                                <linearGradient id="roofWood" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#b87b38"/>
+                                    <stop offset="100%" stop-color="#5a3412"/>
+                                </linearGradient>
+                                <filter id="goldGlow">
+                                    <feGaussianBlur stdDeviation="3" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <!-- Background Grid -->
+                            <rect width="760" height="360" fill="#080c17" rx="16"/>
+                            <rect width="760" height="360" fill="url(#grid)" rx="16"/>
+                            <rect width="758" height="358" x="1" y="1" fill="none" stroke="rgba(212, 175, 55, 0.4)" stroke-width="1.5" rx="15"/>
+
+                            <!-- Water Base Line -->
+                            <path d="M 20,245 Q 120,238 220,245 T 420,245 T 620,245 T 740,245 L 740,350 L 20,350 Z" fill="rgba(14, 165, 233, 0.1)"/>
+                            <path d="M 10,250 Q 110,256 230,250 T 450,250 T 650,250 T 750,250" fill="none" stroke="rgba(56, 189, 248, 0.35)" stroke-width="2" stroke-dasharray="8,6"/>
+                            <text x="660" y="242" fill="rgba(56, 189, 248, 0.65)" font-family="'Outfit', sans-serif" font-size="9" font-weight="700" letter-spacing="1">FLOTACIÓN</text>
+
+                            <!-- REALISTIC NOAH'S ARK HULL (Curved wooden barge) -->
+                            <path d="M 90,150 C 100,195 115,235 140,240 L 620,240 C 645,235 660,195 670,150 Z" fill="url(#hullWood)" stroke="#d4af37" stroke-width="2.5" filter="url(#goldGlow)"/>
+
+                            <!-- Wooden Plank Lines -->
+                            <path d="M 94,165 L 666,165" stroke="rgba(212, 175, 55, 0.28)" stroke-width="1.5"/>
+                            <path d="M 100,180 L 660,180" stroke="rgba(212, 175, 55, 0.28)" stroke-width="1.5"/>
+                            <path d="M 108,195 L 652,195" stroke="rgba(212, 175, 55, 0.28)" stroke-width="1.5"/>
+                            <path d="M 118,210 L 642,210" stroke="rgba(212, 175, 55, 0.28)" stroke-width="1.5"/>
+                            <path d="M 128,225 L 632,225" stroke="rgba(212, 175, 55, 0.28)" stroke-width="1.5"/>
+
+                            <!-- Vertical Ribs -->
+                            <line x1="190" y1="150" x2="190" y2="240" stroke="rgba(0,0,0,0.35)" stroke-width="2"/>
+                            <line x1="290" y1="150" x2="290" y2="240" stroke="rgba(0,0,0,0.35)" stroke-width="2"/>
+                            <line x1="380" y1="150" x2="380" y2="240" stroke="rgba(0,0,0,0.35)" stroke-width="2"/>
+                            <line x1="470" y1="150" x2="470" y2="240" stroke="rgba(0,0,0,0.35)" stroke-width="2"/>
+                            <line x1="570" y1="150" x2="570" y2="240" stroke="rgba(0,0,0,0.35)" stroke-width="2"/>
+
+                            <!-- 3 Deck Labels Inside Hull -->
+                            <rect x="270" y="152" width="220" height="20" rx="10" fill="rgba(8, 12, 23, 0.75)" stroke="rgba(212, 175, 55, 0.6)" stroke-width="1"/>
+                            <text x="380" y="166" fill="#fef08a" font-family="'Outfit', sans-serif" font-size="10" font-weight="800" text-anchor="middle" letter-spacing="1">3ª CUBIERTA (SUPERIOR)</text>
+
+                            <rect x="270" y="180" width="220" height="20" rx="10" fill="rgba(8, 12, 23, 0.75)" stroke="rgba(212, 175, 55, 0.6)" stroke-width="1"/>
+                            <text x="380" y="194" fill="#fef08a" font-family="'Outfit', sans-serif" font-size="10" font-weight="800" text-anchor="middle" letter-spacing="1">2ª CUBIERTA (MEDIA)</text>
+
+                            <rect x="270" y="208" width="220" height="20" rx="10" fill="rgba(8, 12, 23, 0.75)" stroke="rgba(212, 175, 55, 0.6)" stroke-width="1"/>
+                            <text x="380" y="222" fill="#fef08a" font-family="'Outfit', sans-serif" font-size="10" font-weight="800" text-anchor="middle" letter-spacing="1">1ª CUBIERTA (INFERIOR)</text>
+
+                            <!-- Upper Deckhouse Structure -->
+                            <polygon points="105,150 120,115 640,115 655,150" fill="url(#deckWood)" stroke="#d4af37" stroke-width="1.5"/>
+                            <polygon points="120,115 135,95 625,95 640,115" fill="url(#roofWood)" stroke="#38bdf8" stroke-width="1.5"/>
+
+                            <!-- Continuous Skylight Window -->
+                            <rect x="145" y="102" width="470" height="7" rx="2" fill="#fef08a" opacity="0.95" filter="url(#goldGlow)"/>
+
+                            <!-- TOP LEFT BADGE: ALTO -->
+                            <rect x="20" y="20" width="200" height="32" rx="16" fill="#080c17" stroke="#d4af37" stroke-width="1.5"/>
+                            <text x="120" y="41" fill="#fef08a" font-family="'Outfit', sans-serif" font-size="12" font-weight="800" text-anchor="middle">ALTO: 30 CODOS (~14 m)</text>
+
+                            <!-- TOP CENTER BADGE: TRAGALUZ -->
+                            <rect x="240" y="20" width="270" height="32" rx="16" fill="#080c17" stroke="#38bdf8" stroke-width="1.5"/>
+                            <text x="375" y="41" fill="#38bdf8" font-family="'Outfit', sans-serif" font-size="11" font-weight="800" text-anchor="middle">TRAGALUZ (VENTANA 1 CODO)</text>
+
+                            <!-- TOP RIGHT BADGE: ANCHO -->
+                            <rect x="530" y="20" width="210" height="32" rx="16" fill="#080c17" stroke="#d4af37" stroke-width="1.5"/>
+                            <text x="635" y="41" fill="#fef08a" font-family="'Outfit', sans-serif" font-size="12" font-weight="800" text-anchor="middle">ANCHO: 50 CODOS (~23 m)</text>
+
+                            <!-- VERTICAL HEIGHT ARROW ON LEFT -->
+                            <line x1="55" y1="95" x2="55" y2="240" stroke="#d4af37" stroke-width="2"/>
+                            <line x1="45" y1="95" x2="65" y2="95" stroke="#d4af37" stroke-width="2"/>
+                            <line x1="45" y1="240" x2="65" y2="240" stroke="#d4af37" stroke-width="2"/>
+                            <polygon points="55,95 50,107 60,107" fill="#d4af37"/>
+                            <polygon points="55,240 50,228 60,228" fill="#d4af37"/>
+
+                            <!-- HORIZONTAL LENGTH ARROW AT BOTTOM -->
+                            <line x1="90" y1="275" x2="670" y2="275" stroke="#38bdf8" stroke-width="2"/>
+                            <line x1="90" y1="265" x2="90" y2="285" stroke="#38bdf8" stroke-width="2"/>
+                            <line x1="670" y1="265" x2="670" y2="285" stroke="#38bdf8" stroke-width="2"/>
+                            <polygon points="90,275 102,270 102,280" fill="#38bdf8"/>
+                            <polygon points="670,275 658,270 658,280" fill="#38bdf8"/>
+
+                            <!-- CENTER BOTTOM BADGE: LARGO -->
+                            <rect x="240" y="260" width="280" height="30" rx="15" fill="#080c17" stroke="#38bdf8" stroke-width="1.5"/>
+                            <text x="380" y="280" fill="#38bdf8" font-family="'Outfit', sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1">LARGO: 300 CODOS (~137 METROS)</text>
+
+                            <!-- STABILITY STAMP AT VERY BOTTOM -->
+                            <rect x="230" y="308" width="300" height="30" rx="15" fill="rgba(16, 185, 129, 0.25)" stroke="#10b981" stroke-width="1.5"/>
+                            <text x="380" y="328" fill="#34d399" font-family="'Outfit', sans-serif" font-size="12" font-weight="900" letter-spacing="1" text-anchor="middle">PROPORCIÓN 6:1 (IMPOSIBLE DE VOLCARSE)</text>
+                        </svg>
+                    </div>
+
+                    <!-- 4 Measurement Cards Below Diagram -->
+                    <div class="ark-specs-grid">
+                        <div class="ark-spec-card">
+                            <span class="spec-label">LONGITUD / LARGO</span>
+                            <div class="spec-value">300 CODOS</div>
+                            <div class="spec-equiv">~137 METROS</div>
+                        </div>
+
+                        <div class="ark-spec-card">
+                            <span class="spec-label">ANCHURA / ANCHO</span>
+                            <div class="spec-value">50 CODOS</div>
+                            <div class="spec-equiv">~23 METROS</div>
+                        </div>
+
+                        <div class="ark-spec-card">
+                            <span class="spec-label">ALTURA / ALTO</span>
+                            <div class="spec-value">30 CODOS</div>
+                            <div class="spec-equiv">~14 METROS</div>
+                        </div>
+
+                        <div class="ark-spec-card highlight-spec">
+                            <span class="spec-label gold-label">ESTABILIDAD NAVAL</span>
+                            <div class="spec-value gold-val">PROPORCIÓN 6:1</div>
+                            <div class="spec-equiv green-equiv">IMPOSIBLE DE VOLCARSE</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 14 — CIERRE EMOCIONAL
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="14" id="scene-emotional">
+            <div class="scene-content">
+                <div class="emotional-bible-glow">
+                    <img src="assets/cover_bible.png" alt="Biblia Iluminada">
+                </div>
+
+                <div class="emotional-question">
+                    ¿CUÁNTAS VIDAS HA TRANSFORMADO LA BIBLIA?
+                </div>
+
+                <div class="emotional-answer">
+                    Millones de personas en todo el mundo.
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 15 — EXPERTOS vs CASUALIDAD
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="15" id="scene-decision">
+            <div class="scene-content" style="max-width: 1240px;">
+
+                <div class="decision-duo-container">
+                    <!-- Left: EXPERTOS + Robotic Arm -->
+                    <div class="decision-col left-col">
+                        <h2 class="decision-option-title left-expert">EXPERTOS</h2>
+                        <div class="arm-frame">
+                            <img src="assets/robotic_arm.png" alt="Brazo Robótico (Expertos)" class="arm-img robot-arm-img" id="robotic-arm">
+                        </div>
+                        <div class="arm-detail-pills">
+                            <span class="arm-pill robot-pill">SERVO-MOTORES</span>
+                            <span class="arm-pill robot-pill">SENSORES Y CIRCUITOS</span>
+                            <span class="arm-pill robot-pill">HECHO POR INGENIEROS</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: CASUALIDAD + Human Arm -->
+                    <div class="decision-col right-col">
+                        <h2 class="decision-option-title right-chance">CASUALIDAD</h2>
+                        <div class="arm-frame">
+                            <img src="assets/human_arm.png" alt="Brazo Humano (Anatomía, Venas y Átomos)" class="arm-img human-arm-img" id="human-arm">
+                        </div>
+                        <div class="arm-detail-pills">
+                            <span class="arm-pill human-pill">VENAS Y MÚSCULOS</span>
+                            <span class="arm-pill human-pill">IMPULSOS NERVIOSOS</span>
+                            <span class="arm-pill human-pill">ÁTOMOS Y CÉLULAS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decision-question-footer">
+                    ¿TÚ QUÉ PIENSAS?
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================================================
+             SLIDE 16 — CIERRE Y REFLEXIÓN FINAL (ROMANOS 1:20)
+             ========================================================================== -->
+        <section class="slide-scene" data-slide="16" id="scene-romans">
+            <div class="romans-bg-container">
+                <img src="assets/romans_bg.png" alt="Creación y deidad (Romanos 1:20)" class="romans-bg-img">
+                <div class="romans-overlay"></div>
+            </div>
+
+            <div class="scene-content" style="max-width: 1000px; z-index: 5;">
+                <div class="badge-tag gold-badge" style="margin-bottom: 24px;">
+                    DECLARACIÓN FINAL
+                </div>
+
+                <div class="romans-quote-card">
+                    <div class="quote-icon">“</div>
+                    <blockquote class="romans-verse-text">
+                        Porque las cosas invisibles de él, su eterno poder y deidad, se hacen claramente visibles desde la creación del mundo, siendo entendidas por medio de las cosas hechas, de modo que no tienen excusa.
+                    </blockquote>
+                    <div class="romans-reference">
+                        — ROMANOS 1:20
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Script de Presentación Horizontal por Flechas -->
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1437 @@
+/* ==========================================================================
+   DATOS CURIOSOS DE LA BIBLIA — PRESENTACIÓN INTERACTIVA HORIZONTAL (SLIDER)
+   Concepto: Biblioteca histórica + Manuscrito antiguo + Tecnología moderna
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+    --bg-dark: #05070e;
+    --bg-card: rgba(12, 17, 28, 0.78);
+    --bg-glass: rgba(18, 24, 38, 0.65);
+    
+    --gold-main: #d4af37;
+    --gold-light: #f7e7b5;
+    --gold-dark: #8c6d23;
+    --gold-glow: rgba(212, 175, 55, 0.35);
+    
+    --ivory-text: #fcfaf5;
+    --beige-text: #e6d8c3;
+    --muted-slate: #94a3b8;
+    --dark-border: rgba(212, 175, 55, 0.25);
+    
+    --font-title: 'Cinzel', serif;
+    --font-manuscript: 'Cormorant Garamond', serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-number: 'Space Grotesk', sans-serif;
+
+    --transition-slide: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    color: var(--ivory-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+}
+
+/* Background Particle Canvas */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.65;
+}
+
+/* Header Navigation & Slide Counter Badges */
+.top-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    z-index: 100;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-main), var(--gold-light));
+    box-shadow: 0 0 12px var(--gold-main);
+    transition: width 0.4s ease-out;
+}
+
+.header-tag {
+    position: fixed;
+    top: 24px;
+    left: 40px;
+    z-index: 90;
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    color: var(--gold-main);
+    text-transform: uppercase;
+    font-weight: 700;
+    background: rgba(10, 15, 25, 0.8);
+    padding: 6px 18px;
+    border-radius: 20px;
+    border: 1px solid var(--dark-border);
+    backdrop-filter: blur(8px);
+}
+
+.footer-counter {
+    position: fixed;
+    bottom: 24px;
+    right: 40px;
+    z-index: 90;
+    font-family: var(--font-number);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    background: rgba(10, 15, 25, 0.8);
+    padding: 6px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--dark-border);
+    backdrop-filter: blur(8px);
+}
+
+.nav-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 40px;
+    z-index: 90;
+    font-family: var(--font-title);
+    font-size: 0.78rem;
+    letter-spacing: 2.5px;
+    color: var(--muted-slate);
+    text-transform: uppercase;
+    background: rgba(10, 15, 25, 0.7);
+    padding: 6px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Presentation Slider Wrapper */
+.presentation-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* Individual Side-to-Side Horizontal Slide */
+.slide-scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 60px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100vw);
+    transition: var(--transition-slide);
+    overflow: hidden;
+}
+
+.slide-scene.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    z-index: 20;
+}
+
+.slide-scene.prev-slide {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100vw);
+}
+
+.scene-content {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Typography & Badges */
+.badge-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-title);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    color: var(--gold-main);
+    text-transform: uppercase;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid var(--dark-border);
+    padding: 5px 18px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(8px);
+}
+
+.section-title {
+    font-family: var(--font-title);
+    font-size: clamp(2.3rem, 4.2vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 2px;
+    color: var(--ivory-text);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9);
+    margin-bottom: 14px;
+}
+
+.section-title span.gold-highlight {
+    color: var(--gold-main);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-main));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    color: var(--beige-text);
+    max-width: 820px;
+    line-height: 1.4;
+    font-weight: 500;
+    margin-bottom: 18px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================================================
+   SLIDE 01 — PORTADA
+   ========================================================================== */
+.hero-bible-container {
+    position: relative;
+    width: clamp(380px, 35vw, 460px);
+    height: clamp(230px, 32vh, 290px);
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-bible-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(212, 175, 55, 0.35);
+    border: 1.5px solid rgba(212, 175, 55, 0.45);
+    filter: brightness(1.05) contrast(1.1);
+}
+
+.hero-light-beam {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    height: 350px;
+    background: radial-gradient(ellipse at top, rgba(247, 231, 181, 0.3) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.hero-main-title {
+    font-family: var(--font-title);
+    font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: 3.5px;
+    color: var(--ivory-text);
+    text-shadow: 0 6px 40px rgba(0, 0, 0, 0.95);
+    margin-bottom: 12px;
+}
+
+.hero-main-title span {
+    display: block;
+    color: var(--gold-main);
+    background: linear-gradient(135deg, #ffffff 0%, var(--gold-light) 40%, var(--gold-main) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-tagline {
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+    font-family: var(--font-manuscript);
+    font-style: italic;
+    color: var(--beige-text);
+    max-width: 750px;
+    margin-bottom: 0;
+}
+
+.nav-prompt-badge {
+    font-family: var(--font-title);
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+    border: 1.5px solid var(--gold-main);
+    background: rgba(212, 175, 55, 0.15);
+    padding: 10px 24px;
+    border-radius: 30px;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+    animation: pulseGlow 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+    100% { transform: scale(1.05); box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
+}
+
+/* ==========================================================================
+   SLIDE 02 — KINETIC NUMBERS (LA BIBLIA EN DATOS)
+   ========================================================================== */
+.kinetic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+.kinetic-card {
+    background: var(--bg-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 20px;
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(212, 175, 55, 0.05);
+}
+
+.kinetic-number {
+    font-family: var(--font-number);
+    font-size: clamp(3.5rem, 5.8vw, 5.5rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 12px;
+    text-shadow: 0 0 35px var(--gold-glow);
+    background: linear-gradient(180deg, #ffffff 0%, var(--gold-light) 60%, var(--gold-main) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.kinetic-label {
+    font-family: var(--font-title);
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 3.5px;
+    color: var(--ivory-text);
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   SLIDE 03 — LA BIBLIA EN NÚMEROS (MOSAIC GRID)
+   ========================================================================== */
+.stats-mosaic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 1220px;
+    margin-top: 20px;
+}
+
+.mosaic-item {
+    background: var(--bg-glass);
+    border: 1px solid var(--dark-border);
+    border-radius: 18px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.mosaic-item.highlight-large {
+    background: linear-gradient(160deg, rgba(212, 175, 55, 0.14) 0%, rgba(12, 17, 28, 0.85) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.num-val {
+    font-family: var(--font-number);
+    font-size: clamp(2.5rem, 4vw, 3.6rem);
+    font-weight: 700;
+    color: var(--gold-main);
+    line-height: 1.1;
+    margin-bottom: 8px;
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+.num-desc {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: var(--beige-text);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   SLIDE 03 — MAPA INTERACTIVO
+   ========================================================================== */
+.map-canvas-container {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: clamp(260px, 38vh, 330px);
+    background: rgba(8, 12, 22, 0.85);
+    border: 1px solid var(--dark-border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+#world-map-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.expansion-line {
+    stroke-dasharray: 10, 6;
+    animation: expansionDash 3.5s linear infinite;
+}
+
+@keyframes expansionDash {
+    from {
+        stroke-dashoffset: 32;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.origin-node .pulse-ring-outer {
+    transform-origin: center;
+    animation: pulseRingGlow 2.5s ease-out infinite;
+}
+
+.origin-node .pulse-ring-inner {
+    transform-origin: center;
+    animation: pulseRingGlow 2.5s ease-out infinite 0.75s;
+}
+
+@keyframes pulseRingGlow {
+    0% {
+        r: 12px;
+        opacity: 0.9;
+    }
+    100% {
+        r: 36px;
+        opacity: 0;
+    }
+}
+
+.map-stats-overlay {
+    position: absolute;
+    bottom: 14px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-around;
+    gap: 16px;
+    z-index: 10;
+}
+
+.map-stat-box {
+    background: rgba(6, 9, 17, 0.92);
+    border: 1.5px solid var(--gold-main);
+    border-radius: 12px;
+    padding: 10px 18px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+    flex: 1;
+}
+
+.map-stat-title {
+    font-family: var(--font-title);
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+    margin-bottom: 2px;
+    font-weight: 700;
+}
+
+.map-stat-num {
+    font-family: var(--font-number);
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 15px var(--gold-glow);
+}
+
+/* ==========================================================================
+   SLIDE 05 — DETRÁS DE LA PALABRA "BIBLIA"
+   ========================================================================== */
+.manuscript-stage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px;
+    margin-top: 5px;
+}
+
+.manuscript-visual {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.manuscript-img-card {
+    position: absolute;
+    width: 92%;
+    height: 95%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(212, 175, 55, 0.3);
+    border: 1.5px solid var(--gold-dark);
+}
+
+.manuscript-img-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9) contrast(1.15);
+}
+
+.etymology-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.etym-step {
+    background: var(--bg-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 14px;
+    padding: 12px 22px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    backdrop-filter: blur(12px);
+}
+
+.etym-arrow {
+    font-size: 1.3rem;
+    color: var(--gold-main);
+    align-self: center;
+}
+
+.etym-word {
+    font-family: var(--font-title);
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-weight: 900;
+    color: var(--gold-light);
+}
+
+.etym-greek {
+    font-family: var(--font-manuscript);
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    font-style: italic;
+    color: var(--gold-main);
+}
+
+.etym-meaning {
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   SLIDE 06 — IDIOMAS Y ESCRITURA
+   ========================================================================== */
+.languages-trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 10px;
+    margin-bottom: 24px;
+}
+
+.lang-card {
+    background: var(--bg-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 18px;
+    padding: 28px 20px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+}
+
+.lang-name {
+    font-family: var(--font-title);
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+}
+
+.lang-desc {
+    font-size: 0.9rem;
+    color: var(--muted-slate);
+}
+
+.timeline-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(10, 15, 26, 0.85);
+    border: 1px solid var(--dark-border);
+    border-radius: 20px;
+    padding: 30px 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.timeline-bar {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-main), var(--gold-light));
+    border-radius: 3px;
+    margin: 24px 0;
+    box-shadow: 0 0 15px var(--gold-glow);
+}
+
+.timeline-title {
+    font-family: var(--font-number);
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--gold-main);
+    text-shadow: 0 0 25px var(--gold-glow);
+}
+
+.timeline-nodes {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 20px;
+}
+
+.timeline-node-card {
+    background: rgba(18, 26, 42, 0.9);
+    border: 1px solid var(--dark-border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    flex: 1;
+    text-align: center;
+}
+
+/* ==========================================================================
+   SLIDE 07 — LOS EXTREMOS
+   ========================================================================== */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+    max-width: 1100px;
+    margin-top: 10px;
+}
+
+.comp-block {
+    background: var(--bg-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    backdrop-filter: blur(14px);
+}
+
+.comp-header {
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: var(--gold-main);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.comp-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(6, 9, 16, 0.7);
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.comp-item-name {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--ivory-text);
+}
+
+.comp-item-val {
+    font-family: var(--font-number);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold-light);
+}
+
+.comp-bar-container {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.comp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-main));
+    border-radius: 5px;
+}
+
+/* ==========================================================================
+   SLIDE 08 — LOS 3 VERSÍCULOS MÁS CORTOS
+   ========================================================================== */
+.shortest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 1220px;
+    margin-top: 20px;
+}
+
+.shortest-card {
+    background: var(--bg-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 20px;
+    padding: 36px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(14px);
+    position: relative;
+}
+
+.shortest-badge {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-family: var(--font-number);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold-main);
+    opacity: 0.8;
+}
+
+.shortest-ref {
+    font-family: var(--font-title);
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.shortest-quote {
+    font-family: var(--font-manuscript);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-style: italic;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.letters-count-pill {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid var(--gold-main);
+    border-radius: 30px;
+    padding: 6px 20px;
+    font-family: var(--font-number);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/* ==========================================================================
+   SLIDE 09 — INTRO: DATOS CIENTÍFICOS EN LA BIBLIA
+   ========================================================================== */
+.science-intro-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 15px;
+}
+
+.science-intro-card {
+    background: rgba(12, 20, 35, 0.85);
+    border: 1.5px solid rgba(212, 175, 55, 0.35);
+    border-radius: 20px;
+    padding: 30px 24px;
+    text-align: center;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.12);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.science-intro-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-main);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 175, 55, 0.3);
+}
+
+.science-card-icon {
+    font-size: 3.2rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
+}
+
+.science-card-title {
+    font-family: var(--font-title);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.science-card-sub {
+    font-size: 0.98rem;
+    color: var(--beige-text);
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   SLIDES CIENTÍFICOS (TIERRA Y CICLO HIDROLÓGICO)
+   ========================================================================== */
+#scene-science {
+    background: radial-gradient(circle at 50% 50%, #070e1e 0%, #030509 100%);
+}
+
+.science-mosaic {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+    max-width: 1100px;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.science-earth-visual {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(56, 189, 248, 0.25);
+    border: 1.5px solid rgba(56, 189, 248, 0.35);
+}
+
+.science-earth-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.95) contrast(1.1);
+}
+
+.science-facts-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.science-fact-card {
+    background: rgba(10, 16, 28, 0.9);
+    border: 1.5px solid rgba(56, 189, 248, 0.5);
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: left;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+.science-ref-tag {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: #38bdf8;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+
+.science-fact-text {
+    font-family: var(--font-manuscript);
+    font-size: clamp(1.2rem, 1.9vw, 1.5rem);
+    font-style: italic;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.35;
+}
+
+.science-fact-explain {
+    font-size: 0.95rem;
+    color: var(--beige-text);
+    line-height: 1.45;
+}
+
+.science-disclaimer {
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--muted-slate);
+    font-style: italic;
+}
+
+/* ==========================================================================
+   SLIDE 10 — CIERRE EMOCIONAL
+   ========================================================================== */
+#scene-emotional {
+    background: radial-gradient(circle at 50% 40%, rgba(212, 175, 55, 0.15) 0%, #030408 100%);
+}
+
+.emotional-bible-glow {
+    width: 320px;
+    height: 210px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.45);
+    border: 1.5px solid var(--gold-main);
+}
+
+.emotional-bible-glow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.emotional-question {
+    font-family: var(--font-title);
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--beige-text);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.emotional-answer {
+    font-family: var(--font-title);
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    font-weight: 900;
+    color: var(--gold-main);
+    background: linear-gradient(135deg, #ffffff, var(--gold-light), var(--gold-main));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+}
+
+/* ==========================================================================
+   SLIDE 11 — EXPERTOS vs CASUALIDAD (ESCENA DUAL ROBÓTICA / HUMANA)
+   ========================================================================== */
+#scene-decision {
+    background: radial-gradient(circle at 50% 50%, #0d1322 0%, #030408 100%);
+}
+
+.decision-duo-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.decision-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.decision-option-title {
+    font-family: var(--font-title);
+    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.decision-option-title.left-expert {
+    color: #38bdf8;
+    text-shadow: 0 0 30px rgba(56, 189, 248, 0.55);
+}
+
+.decision-option-title.right-chance {
+    color: var(--gold-main);
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.55);
+}
+
+.arm-frame {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arm-img {
+    height: 100%;
+    max-height: 290px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.2s ease-out;
+}
+
+.robot-arm-img {
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 25px rgba(56, 189, 248, 0.4));
+}
+
+.human-arm-img {
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 25px rgba(212, 175, 55, 0.4));
+}
+
+.arm-detail-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 10px;
+    max-width: 400px;
+}
+
+.arm-pill {
+    font-family: var(--font-title);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    padding: 4px 12px;
+    border-radius: 16px;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.arm-pill:hover {
+    transform: translateY(-2px);
+}
+
+.robot-pill {
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #7dd3fc;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+}
+
+.human-pill {
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: var(--gold-light);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
+}
+
+.ark-dimensions-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 8px 0;
+}
+
+.ark-pill {
+    font-family: var(--font-title);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 5px 14px;
+    border-radius: 16px;
+    background: rgba(212, 175, 55, 0.18);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    color: var(--gold-light);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+}
+
+.ark-blueprint-container {
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(56, 189, 248, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ark-blueprint-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 45px rgba(56, 189, 248, 0.25);
+}
+
+.ark-svg-blueprint {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.ark-full-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.ark-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+.ark-spec-card {
+    background: rgba(15, 23, 42, 0.68);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 16px 18px;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.ark-spec-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 175, 55, 0.5);
+}
+
+.ark-spec-card.highlight-spec {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1.5px solid rgba(16, 185, 129, 0.55);
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.22);
+}
+
+.spec-label {
+    font-family: var(--font-title);
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--muted-slate);
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.spec-label.gold-label {
+    color: #34d399;
+}
+
+.spec-value {
+    font-family: var(--font-title);
+    font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+    font-weight: 900;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+}
+
+.spec-value.gold-val {
+    color: #34d399;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.spec-equiv {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-top: 4px;
+}
+
+.spec-equiv.green-equiv {
+    color: #a7f3d0;
+    font-weight: 700;
+}
+
+.decision-question-footer {
+    font-family: var(--font-title);
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 900;
+    color: var(--ivory-text);
+    letter-spacing: 3px;
+    margin-top: 18px;
+    text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+/* ==========================================================================
+   SLIDE 09 — JOB 3:2 EN OTRAS VERSIONES
+   ========================================================================== */
+.job-versions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 32px;
+    width: 100%;
+}
+
+.job-version-card {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.job-version-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+}
+
+.job-version-card.highlight-version {
+    background: rgba(212, 175, 55, 0.08);
+    border: 1.5px solid var(--gold-primary);
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.28), inset 0 0 25px rgba(212, 175, 55, 0.1);
+}
+
+.version-name {
+    font-family: var(--font-title);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--gold-light);
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+}
+
+.version-name.gold-badge-sm {
+    background: rgba(212, 175, 55, 0.25);
+    border: 1px solid var(--gold-primary);
+    padding: 4px 14px;
+    border-radius: 20px;
+    color: var(--ivory-text);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.version-full-title {
+    font-size: 0.85rem;
+    color: var(--muted-slate);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.version-quote {
+    font-family: var(--font-body);
+    font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.35;
+}
+
+.version-quote.highlight-quote {
+    color: var(--gold-light);
+    font-size: clamp(1.55rem, 2.3vw, 2rem);
+    text-shadow: 0 0 18px rgba(212, 175, 55, 0.7);
+}
+
+.version-count-pill {
+    font-family: var(--font-title);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 6px 18px;
+    border-radius: 20px;
+}
+
+.version-count-pill.gold-pill {
+    color: var(--gold-primary);
+    background: rgba(212, 175, 55, 0.22);
+    border-color: rgba(212, 175, 55, 0.65);
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.35);
+}
+
+/* ==========================================================================
+   SLIDE 14 — ROMANOS 1:20 (FINAL SLIDE)
+   ========================================================================== */
+#scene-romans {
+    position: relative;
+    overflow: hidden;
+}
+
+.romans-bg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.romans-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.68) contrast(1.15);
+    transform: scale(1.05);
+    animation: subtleZoom 22s infinite alternate ease-in-out;
+}
+
+@keyframes subtleZoom {
+    0% { transform: scale(1.02); }
+    100% { transform: scale(1.09); }
+}
+
+.romans-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(10, 14, 26, 0.45) 0%, rgba(10, 14, 26, 0.82) 85%);
+}
+
+.romans-quote-card {
+    background: rgba(15, 23, 42, 0.68);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 2px solid rgba(212, 175, 55, 0.55);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.28), inset 0 0 35px rgba(212, 175, 55, 0.12);
+    border-radius: 24px;
+    padding: 36px 48px 40px 48px;
+    text-align: center;
+    position: relative;
+    max-width: 940px;
+    margin: 0 auto;
+}
+
+.quote-icon {
+    font-family: Georgia, serif;
+    font-size: 5.5rem;
+    line-height: 0.8;
+    color: var(--gold-primary);
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+    margin-bottom: 8px;
+    opacity: 0.85;
+}
+
+.romans-verse-text {
+    font-family: var(--font-body);
+    font-size: clamp(1.25rem, 2.1vw, 1.8rem);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.68;
+    color: #f8fafc;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 255, 255, 0.25);
+    margin: 0 0 26px 0;
+    letter-spacing: 0.3px;
+}
+
+.romans-reference {
+    display: inline-block;
+    font-family: var(--font-title);
+    font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+    font-weight: 800;
+    color: var(--gold-light);
+    letter-spacing: 3px;
+    padding: 10px 28px;
+    background: rgba(212, 175, 55, 0.16);
+    border: 1.5px solid rgba(212, 175, 55, 0.55);
+    border-radius: 30px;
+    box-shadow: 0 0 24px rgba(212, 175, 55, 0.35);
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+}
+
+/* Responsive Scaling for PC Desktop & Laptops */
+@media (min-width: 1400px) {
+    .slide-scene {
+        padding: 50px 100px;
+    }
+    .decision-duo-container {
+        max-width: 1200px;
+        gap: 80px;
+    }
+    .arm-frame {
+        height: 360px;
+    }
+    .arm-img {
+        max-height: 350px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .kinetic-grid, .stats-mosaic-grid, .languages-trio, .comparison-grid, .shortest-grid, .science-mosaic, .job-versions-grid, .ark-specs-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .manuscript-stage {
+        grid-template-columns: 1fr;
+    }
+    .decision-duo-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    .slide-scene {
+        padding: 40px 20px;
+    }
+}
