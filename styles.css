@@ -1448,3 +1448,74 @@ html, body {
         padding: 40px 20px;
     }
 }
+
+/* ==========================================================================
+   SLIDE 11 — MITOS ANTIGUOS SOBRE LA TIERRA
+   ========================================================================== */
+.myths-comparison-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.myth-card {
+    background: var(--bg-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.myth-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.2);
+    border-color: var(--gold-main);
+}
+
+.myth-img-wrapper {
+    width: 100%;
+    height: 240px;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1.5px solid rgba(212, 175, 55, 0.3);
+}
+
+.myth-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9) contrast(1.1);
+    transition: transform 0.5s ease;
+}
+
+.myth-card:hover .myth-img-wrapper img {
+    transform: scale(1.05);
+}
+
+.myth-title {
+    font-family: var(--font-title);
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.myth-desc {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--beige-text);
+}
+
+@media (max-width: 768px) {
+    .myths-comparison-container {
+        grid-template-columns: 1fr;
+    }
+}
