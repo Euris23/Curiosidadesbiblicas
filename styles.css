@@ -147,7 +147,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 60px;
+    padding: 24px 45px;
     opacity: 0;
     visibility: hidden;
     transform: translateX(100vw);
@@ -169,7 +169,7 @@ html, body {
 }
 
 .scene-content {
-    max-width: 1280px;
+    max-width: 1400px;
     width: 100%;
     margin: 0 auto;
     position: relative;
@@ -186,14 +186,14 @@ html, body {
     align-items: center;
     gap: 8px;
     font-family: var(--font-title);
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     font-weight: 700;
     letter-spacing: 3.5px;
     color: var(--gold-main);
     text-transform: uppercase;
-    background: rgba(212, 175, 55, 0.12);
+    background: rgba(212, 175, 55, 0.14);
     border: 1px solid var(--dark-border);
-    padding: 5px 18px;
+    padding: 6px 20px;
     border-radius: 20px;
     margin-bottom: 16px;
     backdrop-filter: blur(8px);
@@ -201,7 +201,7 @@ html, body {
 
 .section-title {
     font-family: var(--font-title);
-    font-size: clamp(2.3rem, 4.2vw, 3.8rem);
+    font-size: clamp(2.6rem, 4.6vw, 4.2rem);
     font-weight: 800;
     line-height: 1.15;
     letter-spacing: 2px;
@@ -219,12 +219,12 @@ html, body {
 
 .section-subtitle {
     font-family: var(--font-body);
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
     color: var(--beige-text);
-    max-width: 820px;
-    line-height: 1.4;
+    max-width: 920px;
+    line-height: 1.42;
     font-weight: 500;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
@@ -233,9 +233,9 @@ html, body {
    ========================================================================== */
 .hero-bible-container {
     position: relative;
-    width: clamp(380px, 35vw, 460px);
-    height: clamp(230px, 32vh, 290px);
-    margin-bottom: 18px;
+    width: clamp(420px, 40vw, 540px);
+    height: clamp(260px, 36vh, 340px);
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1005,11 +1005,11 @@ html, body {
 
 .decision-option-title {
     font-family: var(--font-title);
-    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    font-size: clamp(2.3rem, 4vw, 3.4rem);
     font-weight: 900;
     letter-spacing: 3px;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .decision-option-title.left-expert {
@@ -1025,7 +1025,7 @@ html, body {
 .arm-frame {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1033,7 +1033,7 @@ html, body {
 
 .arm-img {
     height: 100%;
-    max-height: 290px;
+    max-height: 310px;
     width: auto;
     object-fit: contain;
     transition: transform 0.2s ease-out;
@@ -1050,19 +1050,19 @@ html, body {
 .arm-detail-pills {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
     justify-content: center;
-    margin-top: 10px;
-    max-width: 400px;
+    margin-top: 14px;
+    max-width: 440px;
 }
 
 .arm-pill {
     font-family: var(--font-title);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    padding: 4px 12px;
-    border-radius: 16px;
+    font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    padding: 7px 16px;
+    border-radius: 20px;
     text-transform: uppercase;
     backdrop-filter: blur(8px);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -1073,17 +1073,17 @@ html, body {
 }
 
 .robot-pill {
-    background: rgba(56, 189, 248, 0.12);
-    border: 1px solid rgba(56, 189, 248, 0.4);
+    background: rgba(56, 189, 248, 0.15);
+    border: 1.5px solid rgba(56, 189, 248, 0.5);
     color: #7dd3fc;
-    box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
 }
 
 .human-pill {
-    background: rgba(212, 175, 55, 0.12);
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    background: rgba(212, 175, 55, 0.15);
+    border: 1.5px solid rgba(212, 175, 55, 0.5);
     color: var(--gold-light);
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 0 16px rgba(212, 175, 55, 0.2);
 }
 
 .ark-dimensions-pills {
@@ -1106,38 +1106,48 @@ html, body {
     box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
 }
 
-.ark-blueprint-container {
-    width: 100%;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(56, 189, 248, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ark-blueprint-container:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 15px 45px rgba(56, 189, 248, 0.25);
-}
-
-.ark-svg-blueprint {
-    width: 100%;
-    height: auto;
-    display: block;
+#scene-ark .scene-content {
+    max-width: 1260px;
 }
 
 .ark-full-stage {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 15px;
     width: 100%;
-    margin-top: 15px;
+    margin-top: 8px;
+}
+
+.ark-blueprint-container {
+    width: 100%;
+    max-width: 1040px;
+    max-height: clamp(300px, 46vh, 380px);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 45px rgba(0, 0, 0, 0.55), inset 0 0 25px rgba(56, 189, 248, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ark-blueprint-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 45px rgba(56, 189, 248, 0.28);
+}
+
+.ark-svg-blueprint {
+    width: 100%;
+    max-height: clamp(300px, 46vh, 380px);
+    height: auto;
+    object-fit: contain;
+    display: block;
 }
 
 .ark-specs-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    gap: 15px;
     width: 100%;
+    max-width: 1100px;
 }
 
 .ark-spec-card {
@@ -1145,10 +1155,10 @@ html, body {
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 18px;
-    padding: 16px 18px;
+    border-radius: 16px;
+    padding: 13px 18px;
     text-align: center;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
@@ -1160,17 +1170,17 @@ html, body {
 .ark-spec-card.highlight-spec {
     background: rgba(16, 185, 129, 0.08);
     border: 1.5px solid rgba(16, 185, 129, 0.55);
-    box-shadow: 0 0 25px rgba(16, 185, 129, 0.22);
+    box-shadow: 0 0 22px rgba(16, 185, 129, 0.22);
 }
 
 .spec-label {
     font-family: var(--font-title);
-    font-size: 0.75rem;
+    font-size: 0.76rem;
     font-weight: 800;
     color: var(--muted-slate);
-    letter-spacing: 1.5px;
+    letter-spacing: 1.3px;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .spec-label.gold-label {
@@ -1179,7 +1189,7 @@ html, body {
 
 .spec-value {
     font-family: var(--font-title);
-    font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+    font-size: clamp(1.15rem, 1.7vw, 1.5rem);
     font-weight: 900;
     color: var(--gold-light);
     letter-spacing: 1px;
@@ -1194,7 +1204,7 @@ html, body {
     font-size: 0.88rem;
     font-weight: 600;
     color: #e2e8f0;
-    margin-top: 4px;
+    margin-top: 3px;
 }
 
 .spec-equiv.green-equiv {
@@ -1204,12 +1214,12 @@ html, body {
 
 .decision-question-footer {
     font-family: var(--font-title);
-    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-size: clamp(2.4rem, 4.2vw, 3.5rem);
     font-weight: 900;
     color: var(--ivory-text);
-    letter-spacing: 3px;
-    margin-top: 18px;
-    text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+    letter-spacing: 4px;
+    margin-top: 24px;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
     text-align: center;
 }
 
@@ -1406,17 +1416,20 @@ html, body {
 /* Responsive Scaling for PC Desktop & Laptops */
 @media (min-width: 1400px) {
     .slide-scene {
-        padding: 50px 100px;
+        padding: 30px 60px;
+    }
+    .scene-content {
+        max-width: 1450px;
     }
     .decision-duo-container {
-        max-width: 1200px;
-        gap: 80px;
+        max-width: 1300px;
+        gap: 70px;
     }
     .arm-frame {
-        height: 360px;
+        height: 390px;
     }
     .arm-img {
-        max-height: 350px;
+        max-height: 380px;
     }
 }
 
